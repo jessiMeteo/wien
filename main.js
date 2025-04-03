@@ -38,3 +38,39 @@ async function loadSights(url) {
     }).addTo(map);
 }
 loadSights('https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SEHENSWUERDIGOGD&srsName=EPSG:4326&outputFormat=json');
+
+// Liniennetz Standorte Wien
+async function loadLines(url) {
+    //console.log(url);
+    let response = await fetch(url); //wartet bis Server antwortet auf URL
+    let jsondata = await response.json(); // wartet nimmt daten und ladet sie herunter
+    //console.log(jsondata);
+    L.geoJSON(jsondata,{
+        attribution: "Datenquelle: <a href = 'https://data.wien.gv.at'> Stadt Wien </a>"
+    }).addTo(map);
+}
+loadLines('https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:TOURISTIKLINIEVSLOGD&srsName=EPSG:4326&outputFormat=json');
+
+// Linenhaltestelle Standorte Wien
+async function loadStops(url) {
+    //console.log(url);
+    let response = await fetch(url); //wartet bis Server antwortet auf URL
+    let jsondata = await response.json(); // wartet nimmt daten und ladet sie herunter
+    //console.log(jsondata);
+    L.geoJSON(jsondata,{
+        attribution: "Datenquelle: <a href = 'https://data.wien.gv.at'> Stadt Wien </a>"
+    }).addTo(map);
+}
+loadStops('https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:TOURISTIKHTSVSLOGD&srsName=EPSG:4326&outputFormat=json');
+
+// Füßgängerzone Standorte Wien
+async function loadZones(url) {
+    //console.log(url);
+    let response = await fetch(url); //wartet bis Server antwortet auf URL
+    let jsondata = await response.json(); // wartet nimmt daten und ladet sie herunter
+    //console.log(jsondata);
+    L.geoJSON(jsondata,{
+        attribution: "Datenquelle: <a href = 'https://data.wien.gv.at'> Stadt Wien </a>"
+    }).addTo(map);
+}
+loadZones('https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:FUSSGEHERZONEOGD&srsName=EPSG:4326&outputFormat=json');
