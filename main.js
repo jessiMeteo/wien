@@ -11,15 +11,20 @@ let stephansdom = {
 // Karte initialisieren
 let map = L.map("map").setView([stephansdom.lat, stephansdom.lng], stephansdom.zoom);
 
-// Hintergrundkarte definieren
-L.tileLayer('https://mapsneu.wien.gv.at/basemap/bmapgrau/normal/google3857/{z}/{y}/{x}.png', {
-    maxZoom: 19,
-    attribution: 'Hintergrundkarte: <a href="https://www.basemap.at">basemap.at</a>'
-}).addTo(map);
+// Layercontrol
+L.control.layers({
+    "BasemapAT grau": L.tileLayer('https://mapsneu.wien.gv.at/basemap/bmapgrau/normal/google3857/{z}/{y}/{x}.png', {
+        maxZoom: 19,
+        attribution: 'Hintergrundkarte: <a href="https://www.basemap.at">basemap.at</a>'
+    }).addTo(map)
+}, {
+
+}
+).addTo(map);
 
 // Maßstab (Plug-in)
 // options mit {} einfügen und default-values beachten
-let scale = L.control.scale({ 
+let scale = L.control.scale({
     imperial: false
 }).addTo(map);
 
@@ -29,7 +34,7 @@ async function loadSights(url) {
     let response = await fetch(url); //wartet bis Server antwortet auf URL
     let jsondata = await response.json(); // wartet nimmt daten und ladet sie herunter
     //console.log(jsondata);
-    L.geoJSON(jsondata,{
+    L.geoJSON(jsondata, {
         attribution: "Datenquelle: <a href = 'https://data.wien.gv.at'> Stadt Wien </a>"
     }).addTo(map);
 }
@@ -40,7 +45,7 @@ async function loadLines(url) {
     let response = await fetch(url); //wartet bis Server antwortet auf URL
     let jsondata = await response.json(); // wartet nimmt daten und ladet sie herunter
     //console.log(jsondata);
-    L.geoJSON(jsondata,{
+    L.geoJSON(jsondata, {
         attribution: "Datenquelle: <a href = 'https://data.wien.gv.at'> Stadt Wien </a>"
     }).addTo(map);
 }
@@ -51,7 +56,7 @@ async function loadStops(url) {
     let response = await fetch(url); //wartet bis Server antwortet auf URL
     let jsondata = await response.json(); // wartet nimmt daten und ladet sie herunter
     //console.log(jsondata);
-    L.geoJSON(jsondata,{
+    L.geoJSON(jsondata, {
         attribution: "Datenquelle: <a href = 'https://data.wien.gv.at'> Stadt Wien </a>"
     }).addTo(map);
 }
@@ -62,7 +67,7 @@ async function loadZones(url) {
     let response = await fetch(url); //wartet bis Server antwortet auf URL
     let jsondata = await response.json(); // wartet nimmt daten und ladet sie herunter
     //console.log(jsondata);
-    L.geoJSON(jsondata,{
+    L.geoJSON(jsondata, {
         attribution: "Datenquelle: <a href = 'https://data.wien.gv.at'> Stadt Wien </a>"
     }).addTo(map);
 }
