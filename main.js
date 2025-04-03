@@ -30,9 +30,11 @@ let scale = L.control.scale({
 // Sehenswürdigkeiten Standorte Wien
 async function loadSights(url) {
     //console.log(url);
-    let response = await fetch(url);
-    let jsondata = await response.json();
+    let response = await fetch(url); //wartet bis Server antwortet auf URL
+    let jsondata = await response.json(); // wartet nimmt daten und ladet sie herunter
     //console.log(jsondata);
-    L.geoJSON(jsondata).addTo(map);
+    L.geoJSON(jsondata,{
+        attribution: "Datenquelle: <a href = 'https://data.wien.gv.at'> Stadt Wien </a>"
+    }).addTo(map);
 }
 loadSights('https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SEHENSWUERDIGOGD&srsName=EPSG:4326&outputFormat=json');
