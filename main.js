@@ -18,9 +18,11 @@ L.control.layers({
         attribution: 'Hintergrundkarte: <a href="https://www.basemap.at">basemap.at</a>'
     }).addTo(map)
 }, {
-
-}
-).addTo(map);
+    "Sehenswürdigkeiten": L.featureGroup().addTo(map),
+    "Vienna sightseeing Linien": L.featureGroup().addTo(map),
+    "Vienna sightseeing Haltestellen": L.featureGroup().addTo(map),
+    "Fußgängerzonen": L.featureGroup().addTo(map),
+}).addTo(map);
 
 // Maßstab (Plug-in)
 // options mit {} einfügen und default-values beachten
