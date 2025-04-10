@@ -51,7 +51,17 @@ async function loadSights(url) {
     let jsondata = await response.json(); // wartet nimmt daten und ladet sie herunter
     //console.log(jsondata);
     L.geoJSON(jsondata, {
-        attribution: "Datenquelle: <a href = 'https://data.wien.gv.at'> Stadt Wien </a>"
+        attribution: "Datenquelle: <a href = 'https://data.wien.gv.at'> Stadt Wien </a>",
+        pointToLayer: function(feature, latlng){
+            L.marker(latlng).addTo(map);
+            return L.marker(latlng,{
+                icon: L.icon({
+                    iconUrl: 'icons/photo.png',
+                    iconAnchor : [16, 37], //halbe Bildbreite und ganze Bildhöhe
+                    popupAnchor: [0, -37] // Damit Popup nicht Icon überdeckt
+                })
+            });//.bindPopup('Test'); 
+        }
     }).addTo(overlays.sights);
 }
 
