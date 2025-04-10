@@ -26,10 +26,10 @@ L.control.layers({
     "BasemapAT": L.tileLayer.provider('BasemapAT.basemap').addTo(map),
     "BasemapAT grau": L.tileLayer.provider('BasemapAT.grau').addTo(map),
     "BasemapAT HighDPI": L.tileLayer.provider('BasemapAT.highdpi').addTo(map),
-    "BasemapAT Orthofoto": L.tileLayer.provider('BasemapAT.orthofoto').addTo(map),
-    "BasemapAT Overlay": L.tileLayer.provider('BasemapAT.overlay').addTo(map),
-    "BasemapAT Relief": L.tileLayer.provider('BasemapAT.terrain').addTo(map),
-    "BasemapAT Oberfläche": L.tileLayer.provider('BasemapAT.surface').addTo(map)
+    "BasemapAT Orthofoto": L.tileLayer.provider('BasemapAT.orthofoto'),
+    "BasemapAT Overlay": L.tileLayer.provider('BasemapAT.overlay'),
+    "BasemapAT Relief": L.tileLayer.provider('BasemapAT.terrain'),
+    "BasemapAT Oberfläche": L.tileLayer.provider('BasemapAT.surface')
 }, {
     "Sehenswürdigkeiten": overlays.sights,
     "Vienna sightseeing Linien": overlays.lines,
@@ -62,7 +62,30 @@ async function loadLines(url) {
     let jsondata = await response.json(); // wartet nimmt daten und ladet sie herunter
     //console.log(jsondata);
     L.geoJSON(jsondata, {
-        attribution: "Datenquelle: <a href = 'https://data.wien.gv.at'> Stadt Wien </a>"
+        attribution: "Datenquelle: <a href = 'https://data.wien.gv.at'> Stadt Wien </a>",
+        style: function (feature) {
+            console.log(feature.properties.LINE_NAME);
+            let lineColor;
+            if (feature.properties.LINE_NAME == "Yellow Line") {
+                lineColor = "#FFDC00";
+            } else if (feature.properties.LINE_NAME == 'Red Line') {
+                lineColor = "#FF4136";
+            } else if (feature.properties.LINE_NAME == 'Blue Line') {
+                lineColor = "#0074D9";
+            } else if (feature.properties.LINE_NAME == 'Green Line') {
+                lineColor = "#2ECC40"
+            } else if (feature.properties.LINE_NAME == 'Grey Line') {
+                lineColor = '#AAAAAA'
+            } else if (feature.properties.LINE_NAME == 'Orange Line') {
+                lineColor = '#FF851B'
+            } else {
+                lineColor = '#111111'
+            }
+            return {
+                color: lineColor,
+                weight: 3
+            }
+        }
     }).addTo(overlays.lines);
 }
 
@@ -88,7 +111,7 @@ async function loadZones(url) {
         style: function (feature) {
             console.log(feature);
             return {
-                color:"#F012BE",
+                color: "#F012BE",
                 weight: 1,
                 opacity: 0.4,
                 fillOpacity: 0.1,
