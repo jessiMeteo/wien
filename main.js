@@ -66,7 +66,7 @@ async function loadSights(url) {
                 })
             });//.bindPopup('Test'); 
         },
-        onEachFeature: function(feature, layer) {
+        onEachFeature: function (feature, layer) {
             //console.log(feature.properties);
             layer.bindPopup(`
                 <img src='${feature.properties.THUMBNAIL}' alt='*'>
