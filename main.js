@@ -207,7 +207,13 @@ async function loadHotels(url) {
             })
         }, onEachFeature: function (feature, layer){
             layer.bindPopup(`
-                <h4> </h4>
+                <h3> ${feature.properties.BETRIEB} </h4>
+                <h4> ${feature.properties.BETRIEBSART_TXT} ${feature.properties.KATEGORIE_TXT} </h4>
+                <hr style="height: 2px; background-color: black; border: none;">
+                Addr.: ${feature.properties.ADRESSE} <br>
+                Tel.: <a href="tel:${feature.properties.KONTAKT_TEL}">${feature.properties.KONTAKT_TEL}</a> <br>
+                <a href="mailto:${feature.properties.KONTAKT_EMAIL}"> ${feature.properties.KONTAKT_EMAIL}</a> <br>
+                <a href="${feature.properties.WEBLINK1}"> Homepage </a> 
                 `)
         }
     }).addTo(overlays.hotels);
